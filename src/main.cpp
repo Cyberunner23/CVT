@@ -139,29 +139,34 @@ int main(int argc, char* argv[]){
 
     char tmp[32];
 
-    progressRead.getline(tmp, 32);
-    build = atoi(tmp);
-    if(isBuildIncremented) build++;
 
-    progressRead.getline(tmp, 32);
-    patch = atoi(tmp);
-    if(isPatchIncremented) patch++;
-
-    progressRead.getline(tmp, 32);
-    minor = atoi(tmp);
-    if(isMinorIncremented){
-        minor++;
-        patch = 0;
-    }
 
     progressRead.getline(tmp, 32);
     major = atoi(tmp);
+
+    progressRead.getline(tmp, 32);
+    minor = atoi(tmp);
+
+    progressRead.getline(tmp, 32);
+    patch = atoi(tmp);
+
+    progressRead.getline(tmp, 32);
+    build = atoi(tmp);
+
     if(isMajorIncremented){
         major++;
         minor = 0;
         patch = 0;
     }
 
+    if(isMinorIncremented){
+        minor++;
+        patch = 0;
+    }
+
+    if(isPatchIncremented) patch++;
+
+    if(isBuildIncremented) build++;
 
     progressRead.close();
 
