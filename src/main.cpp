@@ -18,7 +18,6 @@ Copyright 2014 Alex Frappier Lachapelle
 #include <fstream>
 #include <iostream>
 #include <sstream>
-#include <string>
 #include <vector>
 
 
@@ -81,9 +80,18 @@ void replaceAll(std::string& str, const std::string& from, const std::string& to
 int main(int argc, char* argv[]){
 
     if(argc == 1){
+        std::cout << "INSUFFICIENT ARGUMENTS" << std::endl;
         std::cout << helpText << std::endl;
         return 0;
     }
+
+    std::cout << "CVT is being called with arguments: " << std::endl << "\t";
+
+    for(int i = 1; i< argc; i++){
+        std::cout << argv[i] << " ";
+    }
+
+    std::cout << std::endl;
 
     for(int i = 1; i < argc; i++){
 
@@ -93,29 +101,35 @@ int main(int argc, char* argv[]){
         }else if(strcmp(argv[i], "--set-template-path") == 0 || strcmp(argv[i], "-stp") == 0){
 
             if(i + 1 == argc){
+                std::cout << "INSUFFICIENT ARGUMENTS FOR -stp" << std::endl;
                 std::cout << helpText << std::endl;
                 break;
             }
 
             templateFilePath = argv[i + 1];
+            i++;
 
         }else if(strcmp(argv[i], "--set-output-path") == 0 || strcmp(argv[i], "-sop") == 0){
 
             if(i + 1 == argc){
+                std::cout << "INSUFFICIENT ARGUMENTS FOR -sop" << std::endl;
                 std::cout << helpText << std::endl;
                 break;
             }
 
             outputFilePath = argv[i + 1];
+            i++;
 
         }else if(strcmp(argv[i], "--set-progress-path") == 0 || strcmp(argv[i], "-spp") == 0){
 
             if(i + 1 == argc){
+                std::cout << "INSUFFICIENT ARGUMENTS FOR -spp" << std::endl;
                 std::cout << helpText << std::endl;
                 break;
             }
 
             progressFilePath = argv[i + 1];
+            i++;
 
         }else if(strcmp(argv[i], "--increment-major") == 0 || strcmp(argv[i], "-iM") == 0){
             isMajorIncremented = true;
@@ -125,7 +139,9 @@ int main(int argc, char* argv[]){
             isPatchIncremented = true;
         }else if(strcmp(argv[i], "--increment-build") == 0 || strcmp(argv[i], "-ib") == 0){
             isBuildIncremented = true;
+            //std::cout << "buils gets incremented" << std::endl;
         }else{
+            std::cout << "INVALIG ARGUMENT: " << argv[i] << std::endl;
             std::cout << helpText << std::endl;
         }
     }
@@ -204,6 +220,11 @@ int main(int argc, char* argv[]){
     }
 
     progressWrite << major << "\n" << minor << "\n" << patch << "\n" << build << std::flush;
+
+    std::cout << "Major is now: " << major << std::endl;
+    std::cout << "Minor is now: " << minor << std::endl;
+    std::cout << "Patch is now: " << patch << std::endl;
+    std::cout << "Build is now: " << build << std::endl;
 
 
     return 0;
